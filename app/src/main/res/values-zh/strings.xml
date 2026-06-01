@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">物业管家</string>
+    
+    <!-- Dashboard -->
+    <string name="dashboard">首頁</string>
+    <string name="total_properties">物業數量</string>
+    <string name="active_leases">有效租約</string>
+    <string name="total_income">總收入</string>
+    <string name="total_expenses">總支出</string>
+    
+    <!-- Properties -->
+    <string name="properties">物業列表</string>
+    <string name="property_detail">物業詳情</string>
+    <string name="add_property">添加物業</string>
+    <string name="edit_property">編輯物業</string>
+    <string name="delete_property">刪除物業</string>
+    <string name="property_name">物業名稱</string>
+    <string name="property_address">地址</string>
+    <string name="property_type">類型</string>
+    <string name="property_area">面積 (平方米)</string>
+    <string name="property_price">購買價格</string>
+    <string name="property_notes">備註</string>
+    
+    <!-- Tenants -->
+    <string name="tenants">租客管理</string>
+    <string name="add_tenant">添加租客</string>
+    <string name="tenant_name">姓名</string>
+    <string name="tenant_phone">電話</string>
+    <string name="tenant_email">郵箱</string>
+    <string name="tenant_id_number">證件號碼</string>
+    
+    <!-- Leases -->
+    <string name="leases">租約管理</string>
+    <string name="add_lease">添加租約</string>
+    <string name="lease_start_date">開始日期</string>
+    <string name="lease_end_date">結束日期</string>
+    <string name="monthly_rent">月租金</string>
+    <string name="deposit">押金</string>
+    
+    <!-- Expenses -->
+    <string name="expenses">支出記錄</string>
+    <string name="add_expense">添加支出</string>
+    <string name="expense_category">類別</string>
+    <string name="expense_amount">金額</string>
+    <string name="expense_description">描述</string>
+    <string name="take_photo">拍照</string>
+    
+    <!-- Reports -->
+    <string name="reports">報表統計</string>
+    <string name="export_excel">導出 Excel</string>
+    <string name="export_pdf">導出 PDF</string>
+    
+    <!-- Settings -->
+    <string name="settings">設置</string>
+    <string name="language">語言</string>
+    <string name="backup">數據備份</string>
+    <string name="restore">數據恢復</string>
+    
+    <!-- Common -->
+    <string name="save">保存</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">確認</string>
+    <string name="delete">刪除</string>
+    <string name="edit">編輯</string>
+    <string name="add">添加</string>
+    <string name="search">搜索</string>
+    <string name="no_data">暫無數據</string>
+    <string name="loading">加載中...</string>
+    <string name="error">錯誤</string>
+    <string name="success">成功</string>
+    
+    <!-- Property Types -->
+    <string name="residential">住宅</string>
+    <string name="commercial">商業</string>
+    <string name="mixed">混合</string>
+    
+    <!-- Expense Categories -->
+    <string name="maintenance">維修費</string>
+    <string name="management">管理費</string>
+    <string name="tax">稅費</string>
+    <string name="utility">水電費</string>
+    <string name="insurance">保險</string>
+    <string name="other">其他</string>
+    
+    <!-- Lease Status -->
+    <string name="lease_active">有效</string>
+    <string name="lease_expired">已過期</string>
+    <string name="lease_terminated">已終止</string>
+    <string name="lease_renewed">已續約</string>
+</resources>

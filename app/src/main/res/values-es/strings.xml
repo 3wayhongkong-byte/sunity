@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Gestor de Propiedades</string>
+    
+    <!-- Dashboard -->
+    <string name="dashboard">Inicio</string>
+    <string name="total_properties">Propiedades</string>
+    <string name="active_leases">Contratos Activos</string>
+    <string name="total_income">Ingresos Totales</string>
+    <string name="total_expenses">Gastos Totales</string>
+    
+    <!-- Properties -->
+    <string name="properties">Lista de Propiedades</string>
+    <string name="property_detail">Detalle</string>
+    <string name="add_property">Agregar Propiedad</string>
+    <string name="edit_property">Editar</string>
+    <string name="delete_property">Eliminar</string>
+    <string name="property_name">Nombre</string>
+    <string name="property_address">Dirección</string>
+    <string name="property_type">Tipo</string>
+    <string name="property_area">Área (m²)</string>
+    <string name="property_price">Precio Compra</string>
+    <string name="property_notes">Notas</string>
+    
+    <!-- Tenants -->
+    <string name="tenants">Inquilinos</string>
+    <string name="add_tenant">Agregar Inquilino</string>
+    <string name="tenant_name">Nombre</string>
+    <string name="tenant_phone">Teléfono</string>
+    <string name="tenant_email">Email</string>
+    <string name="tenant_id_number">DNI/Pasaporte</string>
+    
+    <!-- Leases -->
+    <string name="leases">Contratos</string>
+    <string name="add_lease">Agregar Contrato</string>
+    <string name="lease_start_date">Inicio</string>
+    <string name="lease_end_date">Fin</string>
+    <string name="monthly_rent">Alquiler Mensual</string>
+    <string name="deposit">Depósito</string>
+    
+    <!-- Expenses -->
+    <string name="expenses">Gastos</string>
+    <string name="add_expense">Agregar Gasto</string>
+    <string name="expense_category">Categoría</string>
+    <string name="expense_amount">Monto</string>
+    <string name="expense_description">Descripción</string>
+    <string name="take_photo">Tomar Foto</string>
+    
+    <!-- Reports -->
+    <string name="reports">Reportes</string>
+    <string name="export_excel">Exportar Excel</string>
+    <string name="export_pdf">Exportar PDF</string>
+    
+    <!-- Settings -->
+    <string name="settings">Configuración</string>
+    <string name="language">Idioma</string>
+    <string name="backup">Backup</string>
+    <string name="restore">Restaurar</string>
+    
+    <!-- Common -->
+    <string name="save">Guardar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="confirm">Confirmar</string>
+    <string name="delete">Eliminar</string>
+    <string name="edit">Editar</string>
+    <string name="add">Agregar</string>
+    <string name="search">Buscar</string>
+    <string name="no_data">Sin datos</string>
+    <string name="loading">Cargando...</string>
+    <string name="error">Error</string>
+    <string name="success">Éxito</string>
+    
+    <!-- Property Types -->
+    <string name="residential">Residencial</string>
+    <string name="commercial">Comercial</string>
+    <string name="mixed">Mixto</string>
+    
+    <!-- Expense Categories -->
+    <string name="maintenance">Mantenimiento</string>
+    <string name="management">Administración</string>
+    <string name="tax">Impuestos</string>
+    <string name="utility">Servicios</string>
+    <string name="insurance">Seguro</string>
+    <string name="other">Otros</string>
+    
+    <!-- Lease Status -->
+    <string name="lease_active">Activo</string>
+    <string name="lease_expired">Vencido</string>
+    <string name="lease_terminated">Terminado</string>
+    <string name="lease_renewed">Renovado</string>
+</resources>
