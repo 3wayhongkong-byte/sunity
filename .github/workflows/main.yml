@@ -25,12 +25,16 @@ jobs:
             ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
 
-      - name: Create google-services.json
+      - name: Create google-services.json (fallback if missing)
         run: |
           if [ -n "${{ secrets.GOOGLE_SERVICES_JSON }}" ]; then
             echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > app/google-services.json
+            echo "✅ Using secret GOOGLE_SERVICES_JSON"
+          elif [ ! -f app/google-services.json ]; then
+            python3 -c 'import json; json.dump({"project_info":{"project_number":"100538114118","project_id":"sunity-ad133","storage_bucket":"sunity-ad133.firebasestorage.app"},"client":[{"client_info":{"mobilesdk_app_id":"1:100538114118:android:11e990ceb7d6ce5823aa47","android_client_info":{"package_name":"com.propertymanager"}},"api_key":[{"current_key":"AIzaSyBYCvLctI85suepN7xWuXl1ae47DCjMqe8"}]}],"configuration_version":"1"}, open("app/google-services.json","w"), indent=2)'
+            echo "✅ Created fallback google-services.json"
           else
-            python3 -c 'import json; json.dump({"project_info":{"project_number":"0","project_id":"placeholder","storage_bucket":"placeholder.appspot.com"},"client":[{"client_info":{"mobilesdk_app_id":"1:0:android:0000000000000000","android_client_info":{"package_name":"com.propertymanager"}},"api_key":[{"current_key":"placeholder"}]}],"configuration_version":"1"}, open("app/google-services.json","w"), indent=2)'
+            echo "✅ google-services.json already exists from repo"
           fi
 
       - name: Build Debug APK
