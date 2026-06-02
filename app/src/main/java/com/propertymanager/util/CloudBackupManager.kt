@@ -1,23 +1,17 @@
 package com.propertymanager.util
 
 import android.content.Context
-import android.widget.Toast
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
-import com.google.firebase.storage.storage
-import com.google.firebase.ktx.Firebase as KtxFirebase
 import com.propertymanager.data.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
-import org.json.JSONObject
-import java.io.File
 
 class CloudBackupManager(private val context: Context) {
     
     private val db = Firebase.firestore
-    private val storage = Firebase.storage
     
     companion object {
         private const val BACKUP_COLLECTION = "backups"
@@ -139,18 +133,9 @@ class CloudBackupManager(private val context: Context) {
     }
     
     suspend fun uploadPhoto(userId: String, backupId: String, uri: android.net.Uri): Result<String> = withContext(Dispatchers.IO) {
-        try {
-            val ref = storage.reference
-                .child("users/$userId/photos")
-                .child("$backupId/${uri.lastPathSegment}")
-            
-            val uploadTask = ref.putFile(uri)
-            val downloadUrl = uploadTask.await().storage.downloadUrl.await().toString()
-            
-            Result.success(downloadUrl)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+        // ⚠️ Firebase Storage 需要 Blaze 付費計劃，Spark 免費版唔支援
+        // 圖片備份功能已停用，數據備份（文字）正常運作
+        Result.success("photo-upload-disabled")
     }
 }
 
