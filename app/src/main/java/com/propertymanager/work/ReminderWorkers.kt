@@ -110,7 +110,7 @@ fun scheduleReminderWork(context: Context) {
         .setRequiresBatteryNotLow(false)
         .setRequiresCharging(false)
         .setRequiresDeviceIdle(false)
-        .setRequiresNetworkType(NetworkType.CONNECTED)
+        .setRequiredNetworkType(NetworkType.CONNECTED)
         .build()
 
     // 每日检查租约到期

@@ -8,6 +8,7 @@ import com.google.firebase.storage.storage
 import com.google.firebase.ktx.Firebase as KtxFirebase
 import com.propertymanager.data.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import java.io.File
@@ -77,7 +78,7 @@ class CloudBackupManager(private val context: Context) {
         }
     }
     
-    private suspend fun <T> uploadCollection(
+    private suspend fun uploadCollection(
         collectionName: String,
         userId: String,
         backupId: String,
@@ -85,7 +86,7 @@ class CloudBackupManager(private val context: Context) {
     ) {
         items.chunked(100).forEach { chunk ->
             val batch = db.batch()
-            chunk.forEachIndexed { index, item ->
+            chunk.forEach { item ->
                 val docRef = db.collection(collectionName)
                     .document(userId)
                     .collection(backupId)
@@ -126,7 +127,7 @@ class CloudBackupManager(private val context: Context) {
         }
     }
     
-    private suspend fun <T> restoreCollection(
+    private suspend fun restoreCollection(
         collectionName: String,
         userId: String,
         backupId: String,
