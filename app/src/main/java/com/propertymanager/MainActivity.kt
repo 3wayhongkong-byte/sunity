@@ -67,6 +67,19 @@ fun PropertyManagerNavHost() {
                 onAddClick = { navController.navigate(Screen.TenantAdd.route) }
             )
         }
+        composable(Screen.PropertyAdd.route) {
+            PropertyAddScreen(
+                onBack = { navController.popBackStack() },
+                onSave = { navController.popBackStack() }
+            )
+        }
+        composable(Screen.TenantList.route) {
+            TenantListScreen(
+                tenants = emptyList(),
+                onTenantClick = { id -> },
+                onAddClick = { navController.navigate(Screen.TenantAdd.route) }
+            )
+        }
         composable(Screen.LeaseList.route) {
             LeaseListScreen(
                 leases = emptyList(),
