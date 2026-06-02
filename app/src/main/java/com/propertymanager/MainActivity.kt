@@ -14,6 +14,7 @@ import com.propertymanager.ui.screens.PropertyListScreen
 import com.propertymanager.ui.screens.TenantListScreen
 import com.propertymanager.ui.screens.LeaseListScreen
 import com.propertymanager.ui.screens.ExpenseListScreen
+import com.propertymanager.ui.screens.PropertyAddScreen
 import com.propertymanager.ui.theme.PropertyManagerTheme
 import androidx.navigation.compose.*
 
