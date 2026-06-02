@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
 package com.propertymanager.ui.screens
 
 import androidx.compose.foundation.clickable
