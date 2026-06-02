@@ -8,6 +8,7 @@ import com.google.firebase.storage.storage
 import com.google.firebase.ktx.Firebase as KtxFirebase
 import com.propertymanager.data.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
@@ -62,12 +63,12 @@ class CloudBackupManager(private val context: Context) {
                 .set(backupMetadata)
             
             // Upload data collections
-            uploadCollection(PROPERTIES_COLLECTION, userId, backupId, properties.map { it.toMap() })
-            uploadCollection(TENANTS_COLLECTION, userId, backupId, tenants.map { it.toMap() })
-            uploadCollection(LEASES_COLLECTION, userId, backupId, leases.map { it.toMap() })
-            uploadCollection(PAYMENTS_COLLECTION, userId, backupId, payments.map { it.toMap() })
-            uploadCollection(EXPENSES_COLLECTION, userId, backupId, expenses.map { it.toMap() })
-            uploadCollection(REMINDERS_COLLECTION, userId, backupId, reminders.map { it.toMap() })
+            uploadCollection(PROPERTIES_COLLECTION, userId, backupId, properties.map { p: Property -> p.toMap() })
+            uploadCollection(TENANTS_COLLECTION, userId, backupId, tenants.map { t: Tenant -> t.toMap() })
+            uploadCollection(LEASES_COLLECTION, userId, backupId, leases.map { l: Lease -> l.toMap() })
+            uploadCollection(PAYMENTS_COLLECTION, userId, backupId, payments.map { p: RentPayment -> p.toMap() })
+            uploadCollection(EXPENSES_COLLECTION, userId, backupId, expenses.map { e: Expense -> e.toMap() })
+            uploadCollection(REMINDERS_COLLECTION, userId, backupId, reminders.map { r: Reminder -> r.toMap() })
             
             // Update last backup time
             PreferenceManager.setLastBackupTime(context, timestamp)
