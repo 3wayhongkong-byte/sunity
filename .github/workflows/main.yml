@@ -30,30 +30,8 @@ jobs:
           if [ -n "${{ secrets.GOOGLE_SERVICES_JSON }}" ]; then
             echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > app/google-services.json
           else
-            python3 -c "
-import json
-config = {
-    'project_info': {
-        'project_number': '0',
-        'project_id': 'placeholder',
-        'storage_bucket': 'placeholder.appspot.com'
-    },
-    'client': [{
-        'client_info': {
-            'mobilesdk_app_id': '1:0:android:0000000000000000',
-            'android_client_info': {
-                'package_name': 'com.propertymanager'
-            }
-        },
-        'api_key': [{'current_key': 'placeholder'}]
-    }],
-    'configuration_version': '1'
-}
-with open('app/google-services.json', 'w') as f:
-    json.dump(config, f, indent=2)
-"
+            python3 -c 'import json; json.dump({"project_info":{"project_number":"0","project_id":"placeholder","storage_bucket":"placeholder.appspot.com"},"client":[{"client_info":{"mobilesdk_app_id":"1:0:android:0000000000000000","android_client_info":{"package_name":"com.propertymanager"}},"api_key":[{"current_key":"placeholder"}]}],"configuration_version":"1"}, open("app/google-services.json","w"), indent=2)'
           fi
-          echo "google-services.json created"
 
       - name: Build Debug APK
         run: ./gradlew assembleDebug
