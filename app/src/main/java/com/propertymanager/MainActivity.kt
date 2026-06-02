@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    PropertyManagerApp()
+                    PropertyManagerNavHost()
                 }
             }
         }
@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun PropertyManagerApp() {
+fun PropertyManagerNavHost() {
     val navController = rememberNavController()
 
     NavHost(
