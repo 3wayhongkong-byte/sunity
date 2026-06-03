@@ -8,7 +8,12 @@ import androidx.compose.material.icons.filled.Save
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.propertymanager.PropertyManagerApp
+import com.propertymanager.data.Property
+import com.propertymanager.data.PropertyType
+import kotlinx.coroutines.launch
 
 @Composable
 fun PropertyAddScreen(
@@ -18,6 +23,11 @@ fun PropertyAddScreen(
     var propertyName by remember { mutableStateOf("") }
     var address by remember { mutableStateOf("") }
     var propertyType by remember { mutableStateOf("") }
+
+    val context = LocalContext.current
+    val app = context.applicationContext as PropertyManagerApp
+    val dao = app.database.propertyDao()
+    val scope = rememberCoroutineScope()
 
     Scaffold(
         topBar = {
@@ -29,7 +39,23 @@ fun PropertyAddScreen(
                     }
                 },
                 actions = {
-                    IconButton(onClick = onSave) {
+                    IconButton(onClick = {
+                        if (propertyName.isNotBlank()) {
+                            scope.launch {
+                                dao.insert(Property(
+                                    name = propertyName,
+                                    address = address,
+                                    type = when {
+                                        propertyType.contains("商") -> PropertyType.COMMERCIAL
+                                        propertyType.contains("混") -> PropertyType.MIXED
+                                        else -> PropertyType.RESIDENTIAL
+                                    },
+                                    area = 0.0
+                                ))
+                                onSave()
+                            }
+                        }
+                    }) {
                         Icon(Icons.Default.Save, contentDescription = "保存")
                     }
                 }
@@ -43,7 +69,7 @@ fun PropertyAddScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Text("物業名稱", style = MaterialTheme.typography.labelLarge)
+            Text("物業名稱 *", style = MaterialTheme.typography.labelLarge)
             OutlinedTextField(
                 value = propertyName,
                 onValueChange = { propertyName = it },
@@ -63,7 +89,7 @@ fun PropertyAddScreen(
             OutlinedTextField(
                 value = propertyType,
                 onValueChange = { propertyType = it },
-                label = { Text("住宅/商業/工業") },
+                label = { Text("住宅 / 商業 / 混合") },
                 modifier = Modifier.fillMaxWidth()
             )
         }

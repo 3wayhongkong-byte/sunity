@@ -6,22 +6,11 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import com.propertymanager.ui.navigation.Screen
-import com.propertymanager.ui.screens.DashboardScreen
-import com.propertymanager.ui.screens.PropertyListScreen
-import com.propertymanager.ui.screens.PropertyDetailScreen
-import com.propertymanager.ui.screens.PropertyAddScreen
-import com.propertymanager.ui.screens.TenantListScreen
-import com.propertymanager.ui.screens.TenantDetailScreen
-import com.propertymanager.ui.screens.TenantAddScreen
-import com.propertymanager.ui.screens.LeaseListScreen
-import com.propertymanager.ui.screens.LeaseDetailScreen
-import com.propertymanager.ui.screens.LeaseAddScreen
-import com.propertymanager.ui.screens.ExpenseListScreen
-import com.propertymanager.ui.screens.ExpenseAddScreen
-import com.propertymanager.ui.screens.SettingsScreen
+import com.propertymanager.ui.screens.*
 import com.propertymanager.ui.theme.PropertyManagerTheme
 import androidx.navigation.compose.*
 import androidx.navigation.NavType
@@ -46,6 +35,9 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun PropertyManagerNavHost() {
     val navController = rememberNavController()
+    val context = LocalContext.current
+    val app = context.applicationContext as PropertyManagerApp
+    val db = app.database
 
     NavHost(
         navController = navController,
@@ -53,10 +45,13 @@ fun PropertyManagerNavHost() {
     ) {
         // Dashboard
         composable(Screen.Dashboard.route) {
+            val properties by db.propertyDao().getAllProperties().collectAsState(initial = emptyList())
+            val leases by db.leaseDao().getAllLeases().collectAsState(initial = emptyList())
+
             DashboardScreen(
-                totalProperties = 0,
-                activeLeases = 0,
-                totalIncome = 0.0,
+                totalProperties = properties.size,
+                activeLeases = leases.count { it.status.name == "ACTIVE" },
+                totalIncome = leases.sumOf { it.monthlyRent },
                 totalExpenses = 0.0,
                 onPropertyClick = { navController.navigate(Screen.PropertyList.route) },
                 onLeaseClick = { navController.navigate(Screen.LeaseList.route) },
@@ -67,8 +62,9 @@ fun PropertyManagerNavHost() {
 
         // Property
         composable(Screen.PropertyList.route) {
+            val properties by db.propertyDao().getAllProperties().collectAsState(initial = emptyList())
             PropertyListScreen(
-                properties = emptyList(),
+                properties = properties,
                 onPropertyClick = { id -> navController.navigate(Screen.PropertyDetail.createRoute(id)) },
                 onAddClick = { navController.navigate(Screen.PropertyAdd.route) }
             )
@@ -92,8 +88,9 @@ fun PropertyManagerNavHost() {
 
         // Tenant
         composable(Screen.TenantList.route) {
+            val tenants by db.tenantDao().getAllTenants().collectAsState(initial = emptyList())
             TenantListScreen(
-                tenants = emptyList(),
+                tenants = tenants,
                 onTenantClick = { id -> navController.navigate(Screen.TenantDetail.createRoute(id)) },
                 onAddClick = { navController.navigate(Screen.TenantAdd.route) }
             )
@@ -117,8 +114,9 @@ fun PropertyManagerNavHost() {
 
         // Lease
         composable(Screen.LeaseList.route) {
+            val leases by db.leaseDao().getAllLeases().collectAsState(initial = emptyList())
             LeaseListScreen(
-                leases = emptyList(),
+                leases = leases,
                 onLeaseClick = { id -> navController.navigate(Screen.LeaseDetail.createRoute(id)) },
                 onAddClick = { navController.navigate(Screen.LeaseAdd.route) }
             )
@@ -142,8 +140,9 @@ fun PropertyManagerNavHost() {
 
         // Expense
         composable(Screen.ExpenseList.route) {
+            val expenses by db.expenseDao().getAllExpenses().collectAsState(initial = emptyList())
             ExpenseListScreen(
-                expenses = emptyList(),
+                expenses = expenses,
                 onExpenseClick = { id -> },
                 onAddClick = { navController.navigate(Screen.ExpenseAdd.route) }
             )

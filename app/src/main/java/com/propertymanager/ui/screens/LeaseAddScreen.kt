@@ -8,7 +8,12 @@ import androidx.compose.material.icons.filled.Save
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.propertymanager.PropertyManagerApp
+import com.propertymanager.data.Lease
+import com.propertymanager.data.LeaseStatus
+import kotlinx.coroutines.launch
 
 @Composable
 fun LeaseAddScreen(
@@ -21,6 +26,11 @@ fun LeaseAddScreen(
     var startDate by remember { mutableStateOf("") }
     var endDate by remember { mutableStateOf("") }
 
+    val context = LocalContext.current
+    val app = context.applicationContext as PropertyManagerApp
+    val dao = app.database.leaseDao()
+    val scope = rememberCoroutineScope()
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -31,7 +41,22 @@ fun LeaseAddScreen(
                     }
                 },
                 actions = {
-                    IconButton(onClick = onSave) {
+                    IconButton(onClick = {
+                        if (leaseName.isNotBlank() && rentAmount.isNotBlank()) {
+                            scope.launch {
+                                dao.insert(Lease(
+                                    propertyId = 0,
+                                    tenantId = 0,
+                                    startDate = startDate.ifBlank { "2026-01-01" },
+                                    endDate = endDate.ifBlank { "2027-01-01" },
+                                    monthlyRent = rentAmount.toDoubleOrNull() ?: 0.0,
+                                    deposit = 0.0,
+                                    terms = leaseName
+                                ))
+                                onSave()
+                            }
+                        }
+                    }) {
                         Icon(Icons.Default.Save, contentDescription = "保存")
                     }
                 }
@@ -42,7 +67,7 @@ fun LeaseAddScreen(
             modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Text("租約名稱", style = MaterialTheme.typography.labelLarge)
+            Text("租約名稱 *", style = MaterialTheme.typography.labelLarge)
             OutlinedTextField(
                 value = leaseName,
                 onValueChange = { leaseName = it },
@@ -58,7 +83,7 @@ fun LeaseAddScreen(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            Text("租金金額", style = MaterialTheme.typography.labelLarge)
+            Text("租金金額 *", style = MaterialTheme.typography.labelLarge)
             OutlinedTextField(
                 value = rentAmount,
                 onValueChange = { rentAmount = it },

@@ -7,17 +7,31 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.propertymanager.PropertyManagerApp
+import com.propertymanager.data.Tenant
+import kotlinx.coroutines.launch
 
 @Composable
 fun TenantDetailScreen(
     tenantId: Long = 0,
     onBack: () -> Unit
 ) {
+    val context = LocalContext.current
+    val app = context.applicationContext as PropertyManagerApp
+    val dao = app.database.tenantDao()
+
+    var tenant by remember { mutableStateOf<Tenant?>(null) }
+
+    LaunchedEffect(tenantId) {
+        tenant = dao.getTenantById(tenantId)
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("租客詳情") },
+                title = { Text(tenant?.name ?: "租客詳情") },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "返回")
@@ -27,9 +41,15 @@ fun TenantDetailScreen(
         }
     ) { padding ->
         Column(modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp)) {
-            Text("租客 ID: $tenantId")
-            Spacer(modifier = Modifier.height(8.dp))
-            Text("（詳情頁面開發中）")
+            if (tenant != null) {
+                Text(tenant!!.name, style = MaterialTheme.typography.headlineSmall)
+                Spacer(Modifier.height(8.dp))
+                Text("電話：${tenant!!.phone}", style = MaterialTheme.typography.bodyLarge)
+                Spacer(Modifier.height(4.dp))
+                Text("電郵：${tenant!!.email}", style = MaterialTheme.typography.bodyMedium)
+            } else {
+                Text("載入中...")
+            }
         }
     }
 }

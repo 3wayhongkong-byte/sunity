@@ -8,7 +8,11 @@ import androidx.compose.material.icons.filled.Save
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.propertymanager.PropertyManagerApp
+import com.propertymanager.data.Tenant
+import kotlinx.coroutines.launch
 
 @Composable
 fun TenantAddScreen(
@@ -18,6 +22,11 @@ fun TenantAddScreen(
     var tenantName by remember { mutableStateOf("") }
     var phone by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
+
+    val context = LocalContext.current
+    val app = context.applicationContext as PropertyManagerApp
+    val dao = app.database.tenantDao()
+    val scope = rememberCoroutineScope()
 
     Scaffold(
         topBar = {
@@ -29,7 +38,18 @@ fun TenantAddScreen(
                     }
                 },
                 actions = {
-                    IconButton(onClick = onSave) {
+                    IconButton(onClick = {
+                        if (tenantName.isNotBlank()) {
+                            scope.launch {
+                                dao.insert(Tenant(
+                                    name = tenantName,
+                                    phone = phone,
+                                    email = email
+                                ))
+                                onSave()
+                            }
+                        }
+                    }) {
                         Icon(Icons.Default.Save, contentDescription = "保存")
                     }
                 }
@@ -40,7 +60,7 @@ fun TenantAddScreen(
             modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Text("租客姓名", style = MaterialTheme.typography.labelLarge)
+            Text("租客姓名 *", style = MaterialTheme.typography.labelLarge)
             OutlinedTextField(
                 value = tenantName,
                 onValueChange = { tenantName = it },
