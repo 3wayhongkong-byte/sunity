@@ -15,6 +15,10 @@ fun PropertyAddScreen(
     onBack: () -> Unit,
     onSave: () -> Unit
 ) {
+    var propertyName by remember { mutableStateOf("") }
+    var address by remember { mutableStateOf("") }
+    var propertyType by remember { mutableStateOf("") }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -41,24 +45,24 @@ fun PropertyAddScreen(
         ) {
             Text("物業名稱", style = MaterialTheme.typography.labelLarge)
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
+                value = propertyName,
+                onValueChange = { propertyName = it },
                 label = { Text("請輸入物業名稱") },
                 modifier = Modifier.fillMaxWidth()
             )
             
             Text("地址", style = MaterialTheme.typography.labelLarge)
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
+                value = address,
+                onValueChange = { address = it },
                 label = { Text("請輸入地址") },
                 modifier = Modifier.fillMaxWidth()
             )
             
             Text("類型", style = MaterialTheme.typography.labelLarge)
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
+                value = propertyType,
+                onValueChange = { propertyType = it },
                 label = { Text("住宅/商業/工業") },
                 modifier = Modifier.fillMaxWidth()
             )
