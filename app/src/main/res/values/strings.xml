@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">抖音自動點贊</string>
+    <string name="start">開始</string>
+    <string name="stop">停止</string>
+    <string name="interval_label">點贊間隔（秒）</string>
+    <string name="max_likes_label">最大點贊數</string>
+    <string name="current_progress">進度</string>
+    <string name="not_running">未運行</string>
+    <string name="running">運行中</string>
+    <string name="accessibility_required">請先開啟無障礙服務權限</string>
+    <string name="overlay_required">請先開啟懸浮窗權限</string>
+    <string name="liked">已點贊</string>
+    <string name="status_idle">待機中</string>
+    <string name="status_searching">尋找按鈕中…</string>
+    <string name="status_clicking">點贊中…</string>
+    <string name="status_swiping">滑動中…</string>
+    <string name="channel_name">點贊服務</string>
+    <string name="channel_desc">顯示自動點贊服務狀態</string>
+    <string name="like_button_desc">贊</string>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/overlay_bg"
+    android:padding="12dp">
+
+    <TextView
+        android:id="@+id/overlay_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="待機"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/overlay_liked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="贊: 0/0"
+        android:textColor="#FF6B6B"
+        android:textSize="10sp"
+        android:layout_marginTop="2dp" />
+
+</LinearLayout>
